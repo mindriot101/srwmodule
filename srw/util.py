@@ -1,4 +1,5 @@
 import cPickle
+import os
 
 def cache(stub):
     '''
