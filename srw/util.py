@@ -1,5 +1,6 @@
 import cPickle
 import os
+import functools
 
 def cache(stub):
     '''
@@ -7,6 +8,7 @@ def cache(stub):
     '''
     name = '.{}.cpickle'.format(stub)
     def decorator(fn):
+        @functools.wraps(fn)
         def __inner(*args, **kwargs):
             if os.path.isfile(name):
                 print "Extractng from cache"
