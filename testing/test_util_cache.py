@@ -30,3 +30,15 @@ class TestCache(unittest.TestCase):
 
         assert cPickle.load(open(self.cache_name)) == 10
 
+def test_custom_cache_directory():
+    cache_stub = 'test'
+    cache_path = '/tmp/.{}.cpickle'.format(cache_stub)
+
+    @cache(cache_stub, directory=os.path.dirname(cache_path))
+    def do_test():
+        return 5
+
+    assert not os.path.isfile(cache_path)
+    assert do_test() == 5
+    assert os.path.isfile(cache_path)
+

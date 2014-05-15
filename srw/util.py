@@ -6,12 +6,12 @@ import cPickle
 import os
 import functools
 
-def cache(stub, verbose=False):
+def cache(stub, directory='.', verbose=False):
     '''Caches the output of a function.
 
     Output goes to the filename .`stub`.cpickle, stored
     as protocol "2" i.e. in binary form'''
-    name = '.{}.cpickle'.format(stub)
+    name = os.path.join(directory, '.{}.cpickle'.format(stub))
     def decorator(fn):
         @functools.wraps(fn)
         def __inner(*args, **kwargs):
