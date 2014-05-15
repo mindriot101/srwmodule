@@ -2,7 +2,7 @@ import cPickle
 import os
 import functools
 
-def cache(stub):
+def cache(stub, verbose=False):
     '''
     Caches the output of a function
     '''
@@ -11,11 +11,13 @@ def cache(stub):
         @functools.wraps(fn)
         def __inner(*args, **kwargs):
             if os.path.isfile(name):
-                print "Extractng from cache"
+                if verbose:
+                    print "Extractng from cache"
                 with open(name) as infile:
                     return cPickle.load(infile)
             else:
-                print "Building cache"
+                if verbose:
+                    print "Building cache"
                 results = fn(*args, **kwargs)
                 with open(name, 'w') as outfile:
                     cPickle.dump(results, outfile, protocol=2)
