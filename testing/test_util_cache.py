@@ -38,7 +38,10 @@ def test_custom_cache_directory():
     def do_test():
         return 5
 
-    assert not os.path.isfile(cache_path)
+    if os.path.isfile(cache_path):
+        os.remove(cache_path)
+
     assert do_test() == 5
+
     assert os.path.isfile(cache_path)
 
