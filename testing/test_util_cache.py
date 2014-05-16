@@ -1,4 +1,8 @@
-import cPickle
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+
 from srw.util import cache
 import os
 import unittest
@@ -28,7 +32,7 @@ class TestCache(unittest.TestCase):
         self.cached_function()
         self.cached_function()
 
-        assert cPickle.load(open(self.cache_name)) == 10
+        assert pickle.load(open(self.cache_name)) == 10
 
 def test_custom_cache_directory():
     cache_stub = 'test'
