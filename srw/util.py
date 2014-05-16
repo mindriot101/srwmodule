@@ -2,7 +2,11 @@
 Some utility functions, for use in my code
 '''
 
-import cPickle
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+
 import os
 import functools
 
@@ -19,13 +23,13 @@ def cache(stub, directory='.', verbose=False):
                 if verbose:
                     print "Extractng from cache"
                 with open(name) as infile:
-                    return cPickle.load(infile)
+                    return pickle.load(infile)
             else:
                 if verbose:
                     print "Building cache"
                 results = fn(*args, **kwargs)
                 with open(name, 'w') as outfile:
-                    cPickle.dump(results, outfile, protocol=2)
+                    pickle.dump(results, outfile, protocol=2)
                 return results
         return __inner
     return decorator
