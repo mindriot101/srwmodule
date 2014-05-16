@@ -11,7 +11,7 @@ def cache(stub, directory='.', verbose=False):
 
     Output goes to the filename .`stub`.cpickle, stored
     as protocol "2" i.e. in binary form'''
-    name = os.path.join(directory, '.{}.cpickle'.format(stub))
+    name = os.path.join(directory, '.{0}.cpickle'.format(stub))
     def decorator(fn):
         @functools.wraps(fn)
         def __inner(*args, **kwargs):

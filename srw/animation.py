@@ -87,7 +87,7 @@ class AutoUpdater(object):
                 fn(*args, **kwargs)
                 self.logger.debug("Drawing screen")
                 plt.draw()
-                self.logger.debug("Sleeping for {} seconds".format(self.sleep_time))
+                self.logger.debug("Sleeping for {0} seconds".format(self.sleep_time))
                 time.sleep(self.sleep_time)
         else:
             self.logger.debug("Not repeating")

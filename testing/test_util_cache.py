@@ -6,7 +6,7 @@ import unittest
 class TestCache(unittest.TestCase):
 
     cache_stub = 'cachestub'
-    cache_name = '.{}.cpickle'.format(cache_stub)
+    cache_name = '.{0}.cpickle'.format(cache_stub)
 
     def setUp(self):
         if os.path.isfile(self.cache_name):
@@ -32,7 +32,7 @@ class TestCache(unittest.TestCase):
 
 def test_custom_cache_directory():
     cache_stub = 'test'
-    cache_path = '/tmp/.{}.cpickle'.format(cache_stub)
+    cache_path = '/tmp/.{0}.cpickle'.format(cache_stub)
 
     @cache(cache_stub, directory=os.path.dirname(cache_path))
     def do_test():
