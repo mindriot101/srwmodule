@@ -9,6 +9,8 @@ except ImportError:
 
 import os
 import functools
+import logging
+logging.basicConfig(level=logging.INFO)
 
 def cache(stub, directory='.', verbose=False):
     '''Caches the output of a function.
@@ -16,17 +18,20 @@ def cache(stub, directory='.', verbose=False):
     Output goes to the filename .`stub`.cpickle, stored
     as protocol "2" i.e. in binary form'''
     name = os.path.join(directory, '.{0}.cpickle'.format(stub))
+
+    logger = logging.getLogger(__name__)
+    if verbose:
+        logger.setLevel(logging.DEBUG)
+
     def decorator(fn):
         @functools.wraps(fn)
         def __inner(*args, **kwargs):
             if os.path.isfile(name):
-                if verbose:
-                    print "Extractng from cache"
+                logger.debug("Extracting from cache")
                 with open(name) as infile:
                     return pickle.load(infile)
             else:
-                if verbose:
-                    print "Building cache"
+                logger.debug("Building cache")
                 results = fn(*args, **kwargs)
                 with open(name, 'w') as outfile:
                     pickle.dump(results, outfile, protocol=2)
